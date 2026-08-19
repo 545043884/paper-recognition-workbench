@@ -1,0 +1,15 @@
+server:
+  port: ${PAPER_VISION_API_PORT:8080}
+spring:
+  datasource:
+    url: ${PAPER_VISION_DB_URL}
+    username: ${PAPER_VISION_DB_USERNAME}
+    password: ${PAPER_VISION_DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+paper-vision:
+  owner:
+    codeid: ${PAPER_VISION_CODEID:ceshi01}
+    dept-id: ${PAPER_VISION_DEPT_ID:231}
+    username: ${PAPER_VISION_USERNAME:ceshi01}

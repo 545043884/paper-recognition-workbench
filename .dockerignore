@@ -1,0 +1,13 @@
+.git
+.idea
+.venv-ocr
+frontend/node_modules
+frontend/dist
+target
+*.log
+__pycache__
+ocr-service/__pycache__
+dist-package
+bt-package
+*.zip
+*.jar

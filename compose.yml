@@ -1,0 +1,49 @@
+services:
+  ocr:
+    build:
+      context: ./ocr-service
+      dockerfile: Dockerfile.gpu
+    restart: unless-stopped
+    gpus: all
+    environment:
+      OCR_DEVICE: gpu:0
+      OCR_MAX_FILES: 20
+      OCR_MAX_FILE_SIZE_MB: 15
+      OCR_LAYOUT_MODEL: PP-DocLayout_plus-L
+      OCR_FORMULA_MODEL: PP-FormulaNet_plus-L
+      OCR_TEXT_DET_MODEL: PP-OCRv5_server_det
+      OCR_TEXT_REC_MODEL: PP-OCRv5_server_rec
+      OCR_USE_DOC_UNWARPING: "1"
+    volumes:
+      - ./uploads/graphs:/app/uploads/graphs
+      - paddle-models:/root/.paddlex
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PAPER_VISION_DB_URL: ${PAPER_VISION_DB_URL}
+      PAPER_VISION_DB_USERNAME: ${PAPER_VISION_DB_USERNAME}
+      PAPER_VISION_DB_PASSWORD: ${PAPER_VISION_DB_PASSWORD}
+      PAPER_VISION_CODEID: ${PAPER_VISION_CODEID:-ceshi01}
+      PAPER_VISION_USERNAME: ${PAPER_VISION_USERNAME:-ceshi01}
+      PAPER_VISION_DEPT_ID: ${PAPER_VISION_DEPT_ID:-231}
+    depends_on:
+      - ocr
+
+  frontend:
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+    depends_on:
+      - ocr
+      - backend
+
+volumes:
+  paddle-models:

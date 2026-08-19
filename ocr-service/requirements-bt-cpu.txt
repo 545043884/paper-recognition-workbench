@@ -1,0 +1,7 @@
+# Install PaddlePaddle CPU first, using the official CPU index:
+# python -m pip install paddlepaddle==3.3.0 -i https://www.paddlepaddle.org.cn/packages/stable/cpu/
+paddleocr==3.7.0
+paddlex[ocr]==3.7.2
+fastapi==0.141.1
+uvicorn[standard]==0.52.0
+python-multipart==0.0.32
