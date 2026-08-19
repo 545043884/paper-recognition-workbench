@@ -1,6 +1,7 @@
 # 试卷识别工作台 (Paper Vision)
 
 拍照上传试卷 → OCR 识别题目 → 填写学段/年级/学科 → 写入题库
+<img width="1860" height="1199" alt="image" src="https://github.com/user-attachments/assets/951a13af-9ce8-4109-bc1c-09a18d2b70f1" />
 
 ## 快速开始
 
